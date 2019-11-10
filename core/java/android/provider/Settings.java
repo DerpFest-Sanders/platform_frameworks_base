@@ -6613,6 +6613,22 @@ public final class Settings {
         private static final Validator FLASHLIGHT_ON_CALL_RATE_VALIDATOR =
                 new SettingsValidators.InclusiveIntegerRangeValidator(1, 5);
 
+         /**
+         * Adaptive playback
+         * Automatically pause media when the volume is muted and
+         * will resume automatically when volume is restored.
+         *   0 = disabled
+         *   1 = enabled
+         * @hide
+         */
+        public static final String ADAPTIVE_PLAYBACK_ENABLED = "adaptive_playback_enabled";
+
+        /**
+         * Adaptive playback's timeout in ms
+         * @hide
+         */
+        public static final String ADAPTIVE_PLAYBACK_TIMEOUT = "adaptive_playback_timeout";
+
         /**
          * Show data usage in QS header
          * 0 = Disabled

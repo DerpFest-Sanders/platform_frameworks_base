@@ -93,6 +93,7 @@ public class QSContainerImpl extends FrameLayout implements
     private boolean mSetQsFromWall;
     private boolean mSetQsFromAccent;
     private boolean mSetQsFromResources;
+    private boolean mQsBackGroundColorRGB;
     private SysuiColorExtractor mColorExtractor;
     private boolean mImmerseMode;
 
@@ -170,11 +171,11 @@ public class QSContainerImpl extends FrameLayout implements
 
         void observe() {
             ContentResolver resolver = getContext().getContentResolver();
-            resolver.registerContentObserver(Settings.System.
-                    getUriFor(Settings.System.QS_PANEL_BG_ALPHA), false,
+            resolver.registerContentObserver(Settings.System
+                    .getUriFor(Settings.System.QS_PANEL_BG_ALPHA), false,
                     this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.
-                    getUriFor(Settings.System.QS_PANEL_BG_COLOR), false,
+            resolver.registerContentObserver(Settings.System
+                    .getUriFor(Settings.System.QS_PANEL_BG_COLOR), false,
                     this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System
                     .getUriFor(Settings.System.QS_PANEL_BG_COLOR_WALL), false,
@@ -191,6 +192,9 @@ public class QSContainerImpl extends FrameLayout implements
             getContext().getContentResolver().registerContentObserver(Settings.System
                     .getUriFor(Settings.System.DISPLAY_CUTOUT_MODE), false,
                     this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System
+                    .getUriFor(Settings.System.QS_PANEL_BG_RGB), false,
+                    this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -202,22 +206,24 @@ public class QSContainerImpl extends FrameLayout implements
     private void updateSettings() {
         ContentResolver resolver = getContext().getContentResolver();
         int userQsWallColorSetting = Settings.System.getIntForUser(resolver,
-                    Settings.System.QS_PANEL_BG_USE_WALL, 0, UserHandle.USER_CURRENT);
+                Settings.System.QS_PANEL_BG_USE_WALL, 0, UserHandle.USER_CURRENT);
         mSetQsFromWall = userQsWallColorSetting == 1;
         int userQsFwSetting = Settings.System.getIntForUser(resolver,
-                    Settings.System.QS_PANEL_BG_USE_FW, 1, UserHandle.USER_CURRENT);
+                Settings.System.QS_PANEL_BG_USE_FW, 1, UserHandle.USER_CURRENT);
         mSetQsFromResources = userQsFwSetting == 1;
         mSetQsFromAccent = Settings.System.getIntForUser(getContext().getContentResolver(),
                     Settings.System.QS_PANEL_BG_USE_ACCENT, 0, UserHandle.USER_CURRENT) == 1;
         mQsBackGroundAlpha = Settings.System.getIntForUser(resolver,
                 Settings.System.QS_PANEL_BG_ALPHA, 255,
                 UserHandle.USER_CURRENT);
-        mQsBackGroundColor = ColorUtils.getValidQsColor(Settings.System.getIntForUser(getContext().getContentResolver(),
+        mQsBackGroundColor = ColorUtils.getValidQsColor(Settings.System.getIntForUser(resolver,
                 Settings.System.QS_PANEL_BG_COLOR, ColorUtils.genRandomQsColor(),
                 UserHandle.USER_CURRENT));
-        mQsBackGroundColorWall = ColorUtils.getValidQsColor(Settings.System.getIntForUser(getContext().getContentResolver(),
+        mQsBackGroundColorWall = ColorUtils.getValidQsColor(Settings.System.getIntForUser(resolver,
                 Settings.System.QS_PANEL_BG_COLOR_WALL, ColorUtils.genRandomQsColor(),
                 UserHandle.USER_CURRENT));
+        mQsBackGroundColorRGB = Settings.System.getIntForUser(resolver,
+                Settings.System.QS_PANEL_BG_RGB, 0, UserHandle.USER_CURRENT) == 1;
         WallpaperColors systemColors = null;
         if (mColorExtractor != null) {
             systemColors = mColorExtractor.getWallpaperColors(WallpaperManager.FLAG_SYSTEM);

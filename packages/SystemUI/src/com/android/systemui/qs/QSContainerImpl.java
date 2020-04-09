@@ -21,7 +21,6 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 import android.animation.ValueAnimator;
 import android.app.ActivityManager;
-import android.app.WallpaperColors;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.ContentResolver;
@@ -40,8 +39,6 @@ import android.os.Handler;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.UserHandle;
-import android.os.RemoteException;
-import android.os.ServiceManager;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -61,6 +58,8 @@ import com.android.systemui.qs.customize.QSCustomizer;
  */
 public class QSContainerImpl extends FrameLayout implements
         StatusBarHeaderMachine.IStatusBarHeaderMachineObserver {
+
+    private static final String TAG = "QSContainerImpl";
 
     private final Point mSizePoint = new Point();
 
@@ -89,7 +88,6 @@ public class QSContainerImpl extends FrameLayout implements
     private boolean mQsBackgroundAlpha;
     private int mQsBackGroundColor;
     private int mQsBackGroundColorWall;
-    private int mCurrentColor;
     private boolean mSetQsFromWall;
     private boolean mSetQsFromAccent;
     private boolean mSetQsFromResources;
@@ -126,7 +124,6 @@ public class QSContainerImpl extends FrameLayout implements
         mQsBackGround = getContext().getDrawable(R.drawable.qs_background_primary);
         mBackgroundImage = findViewById(R.id.qs_header_image_view);
         mBackgroundImage.setClipToOutline(true);
-        mColorExtractor = Dependency.get(SysuiColorExtractor.class);
         setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
         setMargins();
         updateSettings();
@@ -224,13 +221,6 @@ public class QSContainerImpl extends FrameLayout implements
                 UserHandle.USER_CURRENT));
         mQsBackGroundColorRGB = Settings.System.getIntForUser(resolver,
                 Settings.System.QS_PANEL_BG_RGB, 0, UserHandle.USER_CURRENT) == 1;
-        WallpaperColors systemColors = null;
-        if (mColorExtractor != null) {
-            systemColors = mColorExtractor.getWallpaperColors(WallpaperManager.FLAG_SYSTEM);
-        }
-        mCurrentColor = mSetQsFromAccent
-                ? getContext().getResources().getColor(R.color.accent_device_default_light)
-                : mSetQsFromWall ? mQsBackGroundColorWall : mQsBackGroundColor;
         mImmerseMode = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.DISPLAY_CUTOUT_MODE, 0, UserHandle.USER_CURRENT) == 1;
         setQsBackground();
@@ -238,6 +228,8 @@ public class QSContainerImpl extends FrameLayout implements
     }
 
     private void setQsBackground() {
+        int currentColor = mSetQsFromWall ? mQsBackGroundColorWall : mQsBackGroundColor;
+
         if (mSetQsFromResources) {
             stopDiscoMode();
             mQsBackGround = getContext().getDrawable(R.drawable.qs_background_primary);
@@ -251,7 +243,7 @@ public class QSContainerImpl extends FrameLayout implements
             startDiscoMode();
             if (mQsBackGround != null) {
                 if (mDiscoAnim == null || (mDiscoAnim != null && !mDiscoAnim.isStarted() && !mDiscoAnim.isRunning())) {
-                    mQsBackGround.setColorFilter(mCurrentColor, PorterDuff.Mode.SRC_ATOP);
+                    mQsBackGround.setColorFilter(currentColor, PorterDuff.Mode.SRC_ATOP);
                 }
             }
             try {

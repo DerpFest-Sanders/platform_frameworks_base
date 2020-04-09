@@ -4884,6 +4884,16 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+         * Whether to disco the QS tiles or not
+         * @hide
+         */
+        public static final String QS_TILES_BG_DISCO = "qs_tiles_bg_disco";
+
+        /** @hide */
+        private static final Validator QS_TILES_BG_DISCO_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
@@ -6930,6 +6940,7 @@ public final class Settings {
             QS_LAYOUT_ROWS_LANDSCAPE,
             QS_LAYOUT_ROWS,
             QS_TILE_TITLE_VISIBILITY,
+            QS_TILES_BG_DISCO,
             QS_QUICKBAR_COLUMNS,
             QS_ALWAYS_SHOW_SETTINGS,
             QS_DRAG_HANDLE,
@@ -7265,6 +7276,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(QS_LAYOUT_ROWS_LANDSCAPE);
             PRIVATE_SETTINGS.add(QS_LAYOUT_ROWS);
             PRIVATE_SETTINGS.add(QS_TILE_TITLE_VISIBILITY);
+            PRIVATE_SETTINGS.add(QS_TILES_BG_DISCO);
             PRIVATE_SETTINGS.add(QS_QUICKBAR_COLUMNS);
             PRIVATE_SETTINGS.add(DOUBLE_TAP_SLEEP_GESTURE);
             PRIVATE_SETTINGS.add(DOUBLE_TAP_SLEEP_LOCKSCREEN);
@@ -7486,6 +7498,7 @@ public final class Settings {
                     QS_LAYOUT_ROWS_LANDSCAPE_VALIDATOR);
             VALIDATORS.put(QS_LAYOUT_ROWS, QS_LAYOUT_ROWS_VALIDATOR);
             VALIDATORS.put(QS_TILE_TITLE_VISIBILITY, QS_TILE_TITLE_VISIBILITY_VALIDATOR);
+            VALIDATORS.put(QS_TILES_BG_DISCO, QS_TILES_BG_DISCO_VALIDATOR);
             VALIDATORS.put(QS_QUICKBAR_COLUMNS, QS_QUICKBAR_COLUMNS_VALIDATOR);
             VALIDATORS.put(QS_ALWAYS_SHOW_SETTINGS, QS_ALWAYS_SHOW_SETTINGS_VALIDATOR);
             VALIDATORS.put(QS_DRAG_HANDLE, QS_DRAG_HANDLE_VALIDATOR);

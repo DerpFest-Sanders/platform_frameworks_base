@@ -6504,6 +6504,12 @@ public final class Settings {
          */
         public static final String ADAPTIVE_PLAYBACK_TIMEOUT = "adaptive_playback_timeout";
 
+          /**
+           * Whether show/hide things in volume panel by.tikkiX2
+           * @hide
+           */
+          public static final String SYNTHOS_HIDE_THINGS_VOLUMEPANEL = "synthos_hide_things_volumepanel";
+
         /**
          * Show data usage in QS header
          * 0 = Disabled

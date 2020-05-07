@@ -6676,6 +6676,12 @@ public final class Settings {
          */
         public static final String SCREENRECORD_VIDEO_BITRATE = "screenrecord_video_bitrate";
 
+         /**
+         * DismissAll Button
+         * @hide
+         */
+        public static final String DISMISS_ALL_BUTTON = "dismiss_all_button";
+
         /**
          * System-wide switch style
          * 0 = Default

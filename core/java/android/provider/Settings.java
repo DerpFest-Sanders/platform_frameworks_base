@@ -6549,8 +6549,6 @@ public final class Settings {
         private static final Validator QS_DATAUSAGE_VALIDATOR =
                 new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
 
-
-
         /**
          * Screenrecord: audio source
          * @hide
@@ -6574,6 +6572,12 @@ public final class Settings {
          * @hide
          */
         public static final String SCREENRECORD_VIDEO_BITRATE = "screenrecord_video_bitrate";
+
+         /**
+         * DismissAll Button
+         * @hide
+         */
+        public static final String DISMISS_ALL_BUTTON = "dismiss_all_button";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings

@@ -1396,6 +1396,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         // Other icons
         mVolumeComponent = getComponent(VolumeComponent.class);
+        mVolumeComponent.initDependencies(mMediaManager);
 
         mNotificationPanel.setUserSetupComplete(mUserSetup);
         if (UserManager.get(mContext).isUserSwitcherEnabled()) {

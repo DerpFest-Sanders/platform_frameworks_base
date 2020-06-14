@@ -543,6 +543,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     }
 
+    private static Context mStaticContext;
     public ImageView mQSBlurView;
     private boolean blurperformed = false;
 
@@ -1611,7 +1612,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         } else {
             mDismissAllButton.setAlpha(0);
             mDismissAllButton.getBackground().setAlpha(0);
-            mDismissAllButton.setVisibility(View.INVISIBLE);
+             mDismissAllButton.setVisibility(View.INVISIBLE);
         }
     }
 

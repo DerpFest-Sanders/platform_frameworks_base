@@ -1516,6 +1516,52 @@ public class StatusBar extends SystemUI implements DemoMode,
                 Settings.System.QS_BLUR_INTENSITY, 30); // defaulting to 7.5f radius
     }
 
+       public static void setHasClearableNotifications(boolean state) {
+        mClearableNotifications = state;
+    }
+
+    public static void setDismissAllVisible(boolean visible) {
+
+        if(mClearableNotifications && mState != StatusBarState.KEYGUARD && visible && isDismissAllButtonEnabled()) {
+            mDismissAllButton.setVisibility(View.VISIBLE);
+            int DismissAllAlpha = Math.round(255.0f * mStaticNotificationPanel.getExpandedFraction());
+            mDismissAllButton.setAlpha(DismissAllAlpha);
+            mDismissAllButton.getBackground().setAlpha(DismissAllAlpha);
+        } else {
+            mDismissAllButton.setAlpha(0);
+            mDismissAllButton.getBackground().setAlpha(0);
+            mDismissAllButton.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public static void updateDismissAllButton(int iconcolor) {
+        if (mDismissAllButton != null) {
+            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) mDismissAllButton.getLayoutParams();
+            layoutParams.width = mStaticContext.getResources().getDimensionPixelSize(R.dimen.dismiss_all_button_width);
+            layoutParams.height = mStaticContext.getResources().getDimensionPixelSize(R.dimen.dismiss_all_button_height);
+            layoutParams.bottomMargin = mStaticContext.getResources().getDimensionPixelSize(R.dimen.dismiss_all_button_margin_bottom);
+            mDismissAllButton.setElevation(mStaticContext.getResources().getDimension(R.dimen.dismiss_all_button_elevation));
+
+            mDismissAllButton.setColorFilter(iconcolor);
+            mDismissAllButton.setBackground(mStaticContext.getResources().getDrawable(R.drawable.oos_dismiss_all_bcg));
+        }
+    }
+
+    public static void updateDismissAllButtonOnlyDimens() {
+        if (mDismissAllButton != null) {
+            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) mDismissAllButton.getLayoutParams();
+            layoutParams.width = mStaticContext.getResources().getDimensionPixelSize(R.dimen.dismiss_all_button_width);
+            layoutParams.height = mStaticContext.getResources().getDimensionPixelSize(R.dimen.dismiss_all_button_height);
+            layoutParams.bottomMargin = mStaticContext.getResources().getDimensionPixelSize(R.dimen.dismiss_all_button_margin_bottom);
+            mDismissAllButton.setElevation(mStaticContext.getResources().getDimension(R.dimen.dismiss_all_button_elevation));
+        }
+    }
+
+    private static boolean isDismissAllButtonEnabled() {
+        return Settings.System.getInt(mStaticContext.getContentResolver(),
+                Settings.System.DISMISS_ALL_BUTTON, 0) != 0;
+    }
+                
     private void adjustBrightness(int x) {
         mBrightnessChanged = true;
         float raw = ((float) x) / getDisplayWidth();
@@ -1596,52 +1642,6 @@ public class StatusBar extends SystemUI implements DemoMode,
                 || action == MotionEvent.ACTION_CANCEL) {
             mHandler.removeCallbacks(mLongPressBrightnessChange);
         }
-    }
-
-    public static void setHasClearableNotifications(boolean state) {
-        mClearableNotifications = state;
-    }
-
-    public static void setDismissAllVisible(boolean visible) {
-
-        if(mClearableNotifications && mState != StatusBarState.KEYGUARD && visible && isDismissAllButtonEnabled()) {
-            mDismissAllButton.setVisibility(View.VISIBLE);
-            int DismissAllAlpha = Math.round(255.0f * mStaticNotificationPanel.getExpandedFraction());
-            mDismissAllButton.setAlpha(DismissAllAlpha);
-            mDismissAllButton.getBackground().setAlpha(DismissAllAlpha);
-        } else {
-            mDismissAllButton.setAlpha(0);
-            mDismissAllButton.getBackground().setAlpha(0);
-             mDismissAllButton.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    public static void updateDismissAllButton(int iconcolor) {
-        if (mDismissAllButton != null) {
-            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) mDismissAllButton.getLayoutParams();
-            layoutParams.width = mStaticContext.getResources().getDimensionPixelSize(R.dimen.dismiss_all_button_width);
-            layoutParams.height = mStaticContext.getResources().getDimensionPixelSize(R.dimen.dismiss_all_button_height);
-            layoutParams.bottomMargin = mStaticContext.getResources().getDimensionPixelSize(R.dimen.dismiss_all_button_margin_bottom);
-            mDismissAllButton.setElevation(mStaticContext.getResources().getDimension(R.dimen.dismiss_all_button_elevation));
-
-            mDismissAllButton.setColorFilter(iconcolor);
-            mDismissAllButton.setBackground(mStaticContext.getResources().getDrawable(R.drawable.oos_dismiss_all_bcg));
-        }
-    }
-
-    public static void updateDismissAllButtonOnlyDimens() {
-        if (mDismissAllButton != null) {
-            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) mDismissAllButton.getLayoutParams();
-            layoutParams.width = mStaticContext.getResources().getDimensionPixelSize(R.dimen.dismiss_all_button_width);
-            layoutParams.height = mStaticContext.getResources().getDimensionPixelSize(R.dimen.dismiss_all_button_height);
-            layoutParams.bottomMargin = mStaticContext.getResources().getDimensionPixelSize(R.dimen.dismiss_all_button_margin_bottom);
-            mDismissAllButton.setElevation(mStaticContext.getResources().getDimension(R.dimen.dismiss_all_button_elevation));
-        }
-    }
-
-    private static boolean isDismissAllButtonEnabled() {
-        return Settings.System.getInt(mStaticContext.getContentResolver(),
-                Settings.System.DISMISS_ALL_BUTTON, 0) != 0;
     }
 
     protected QS createDefaultQSFragment() {

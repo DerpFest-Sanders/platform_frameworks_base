@@ -6508,12 +6508,6 @@ public final class Settings {
                 new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
 
         /**
-         * DismissAll Button
-         * @hide
-         */
-        public static final String DISMISS_ALL_BUTTON = "dismiss_all_button";
-
-        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *

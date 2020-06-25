@@ -649,6 +649,14 @@ public class VolumeDialogImpl implements VolumeDialog,
                             VISIBLE : GONE);
         }
         if (mExpandRows != null) {
+            mExpandRows.setOnLongClickListener(v -> {
+                Events.writeEvent(mContext, Events.EVENT_SETTINGS_CLICK);
+                Intent intent = new Intent(Settings.Panel.ACTION_VOLUME);
+                dismissH(DISMISS_REASON_SETTINGS_CLICKED);
+                Dependency.get(ActivityStarter.class).startActivity(intent,
+                        true /* dismissShade */);
+                return true;
+            });
             mMediaButton.setOnClickListener(v -> {
                 int x = (int) (isLandscape() ? (isAudioPanelOnLeftSide() ? (
                         (mWidth + mSpacer) * (mHasAlertSlider ? 1 : 2) + mWidth / 2)

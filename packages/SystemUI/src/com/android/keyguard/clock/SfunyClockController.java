@@ -138,15 +138,15 @@ public class SfunyClockController implements ClockPlugin {
 
     @Override
     public View getView() {
-        if (mView == null) {
-            createViews();
-        }
-        return mView;
+        return null;
     }
 
     @Override
     public View getBigClockView() {
-        return null;
+        if (mView == null) {
+            createViews();
+        }
+        return mView;
     }
 
     @Override
@@ -162,15 +162,6 @@ public class SfunyClockController implements ClockPlugin {
         mHourClock.setTextColor(color);
         mMinuteClock.setTextColor(color);
     }
-
-    @Override
-    public void setTypeface(Typeface tf) {
-        mHourClock.setTypeface(tf);
-        mMinuteClock.setTypeface(tf);
-    }
-
-    @Override
-    public void setDateTypeface(Typeface tf) {}
 
     @Override
     public void setColorPalette(boolean supportsDarkText, int[] colorPalette) {}

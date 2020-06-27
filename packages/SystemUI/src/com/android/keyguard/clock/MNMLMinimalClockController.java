@@ -156,15 +156,15 @@ public class MNMLMinimalClockController implements ClockPlugin {
 
     @Override
     public View getView() {
-        if (mView == null) {
-            createViews();
-        }
-        return mView;
+        return null;
     }
 
     @Override
     public View getBigClockView() {
-        return null;
+        if (mView == null) {
+            createViews();
+        }
+        return mView;
     }
 
     @Override
@@ -178,16 +178,6 @@ public class MNMLMinimalClockController implements ClockPlugin {
     @Override
     public void setTextColor(int color) {
         mClock.setTextColor(color);
-    }
-
-    @Override
-    public void setTypeface(Typeface tf) {
-        mClock.setTypeface(tf);
-    }
-
-    @Override
-    public void setDateTypeface(Typeface tf) {
-        mDate.setTypeface(tf);
     }
 
     @Override

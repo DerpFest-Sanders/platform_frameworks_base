@@ -24,8 +24,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint.Style;
 import android.graphics.Typeface;
-import android.text.Html;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextClock;
@@ -155,15 +153,15 @@ public class DividedLinesClockController implements ClockPlugin {
 
     @Override
     public View getView() {
-        return null;
-    }
-
-    @Override
-    public View getBigClockView() {
         if (mView == null) {
             createViews();
         }
         return mView;
+    }
+
+    @Override
+    public View getBigClockView() {
+        return null;
     }
 
     @Override

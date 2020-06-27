@@ -154,15 +154,15 @@ public class MNMLBoxClockController implements ClockPlugin {
 
     @Override
     public View getView() {
-        return null;
-    }
-
-    @Override
-    public View getBigClockView() {
         if (mView == null) {
             createViews();
         }
         return mView;
+    }
+
+    @Override
+    public View getBigClockView() {
+        return null;
     }
 
     @Override

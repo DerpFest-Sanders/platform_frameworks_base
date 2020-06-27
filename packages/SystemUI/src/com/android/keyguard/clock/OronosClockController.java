@@ -190,15 +190,15 @@ public class OronosClockController implements ClockPlugin {
 
     @Override
     public View getView() {
-        return null;
-    }
-
-    @Override
-    public View getBigClockView() {
         if (mView == null) {
             createViews();
         }
         return mView;
+    }
+
+    @Override
+    public View getBigClockView() {
+        return null;
     }
 
     @Override
@@ -211,6 +211,17 @@ public class OronosClockController implements ClockPlugin {
 
     @Override
     public void setTextColor(int color) {}
+
+    @Override
+    public void setTypeface(Typeface tf) {
+        mHourClock.setTypeface(tf);
+        mMinuteClock.setTypeface(tf);
+    }
+
+    @Override
+    public void setDateTypeface(Typeface tf) {
+        mLongDate.setTypeface(tf);
+    }
 
     @Override
     public void setColorPalette(boolean supportsDarkText, int[] colorPalette) {

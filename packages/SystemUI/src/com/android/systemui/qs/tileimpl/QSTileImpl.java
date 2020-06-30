@@ -462,6 +462,8 @@ public abstract class QSTileImpl<TState extends State> implements QSTile, Lifecy
                 Settings.System.QS_PANEL_BG_COLOR, activeDefault, UserHandle.USER_CURRENT);
         int qsBackGroundColorWall = Settings.System.getIntForUser(context.getContentResolver(),
                 Settings.System.QS_PANEL_BG_COLOR_WALL, activeDefault, UserHandle.USER_CURRENT);
+        int qsTileStyle = Settings.System.getIntForUser(context.getContentResolver(),
+                Settings.System.QS_TILE_STYLE, 0, UserHandle.USER_CURRENT);
 
         switch (state) {
             case Tile.STATE_UNAVAILABLE:
@@ -471,10 +473,14 @@ public abstract class QSTileImpl<TState extends State> implements QSTile, Lifecy
                 return Utils.getColorAttrDefaultColor(context, android.R.attr.textColorPrimary);
             case Tile.STATE_ACTIVE:
                 if (setQsFromResources) {
+                    if (qsTileStyle == 7 || qsTileStyle == 9 || qsTileStyle == 10 || qsTileStyle == 12 ||qsTileStyle == 13 || qsTileStyle == 14) {
+                        return Utils.getColorAttrDefaultColor(context, android.R.attr.colorAccent);
+	            } else {
                     if (setQsUseNewTint)
                         return Utils.getColorAttrDefaultColor(context, android.R.attr.colorAccent);
                     else
                         return Utils.getColorAttrDefaultColor(context, android.R.attr.colorPrimary);
+                    }
                 } else {
                      if (setQsFromAccent) {
                         return context.getResources().getColor(R.color.accent_device_default_light);

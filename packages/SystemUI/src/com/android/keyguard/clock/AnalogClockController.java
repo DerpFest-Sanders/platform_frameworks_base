@@ -171,10 +171,6 @@ public class AnalogClockController implements ClockPlugin {
     }
 
     @Override
-    public void setTypeface(Typeface tf) {
-    }
-
-    @Override
     public void setColorPalette(boolean supportsDarkText, int[] colorPalette) {
     }
 

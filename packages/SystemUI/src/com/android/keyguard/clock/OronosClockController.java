@@ -213,17 +213,6 @@ public class OronosClockController implements ClockPlugin {
     public void setTextColor(int color) {}
 
     @Override
-    public void setTypeface(Typeface tf) {
-        mHourClock.setTypeface(tf);
-        mMinuteClock.setTypeface(tf);
-    }
-
-    @Override
-    public void setDateTypeface(Typeface tf) {
-        mLongDate.setTypeface(tf);
-    }
-
-    @Override
     public void setColorPalette(boolean supportsDarkText, int[] colorPalette) {
         if (colorPalette == null || colorPalette.length == 0) {
             return;

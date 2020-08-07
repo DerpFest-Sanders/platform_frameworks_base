@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 ** Copyright 2012, The Android Open Source Project
+** Copyright 2020, Project 404
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -18,6 +19,7 @@
 <!-- Extends FrameLayout -->
 <com.android.systemui.qs.QSFooterImpl
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:systemui="http://schemas.android.com/apk/res-auto"
     android:id="@+id/qs_footer"
     android:layout_width="match_parent"
     android:layout_height="@dimen/qs_footer_height"
@@ -36,6 +38,19 @@
         android:layout_marginEnd="@dimen/qs_footer_margin"
         android:gravity="end" >
 
+        <com.android.systemui.statusbar.policy.DateView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="14dp"
+            android:layout_gravity="start|center_vertical"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.QS.Status"
+            systemui:datePattern="@string/abbrev_wday_month_day_no_year_alarm" />
+
         <com.android.keyguard.AlphaOptimizedLinearLayout
             android:id="@+id/qs_footer_actions_edit_container"
             android:layout_width="@integer/qs_footer_actions_width"
@@ -44,14 +59,15 @@
             android:gravity="center_vertical|start" >
             <com.android.systemui.statusbar.AlphaOptimizedImageView
                 android:id="@android:id/edit"
-                android:layout_width="@dimen/qs_footer_action_button_size"
-                android:layout_height="@dimen/qs_footer_action_button_size"
+                android:layout_width="32dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="4dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:clipToPadding="false"
                 android:contentDescription="@string/accessibility_quick_settings_edit"
                 android:focusable="true"
-                android:padding="@dimen/qs_footer_icon_padding"
+                android:padding="7dp"
                 android:src="@*android:drawable/ic_mode_edit"
                 android:tint="?android:attr/colorForeground"/>
 
@@ -109,20 +125,43 @@
                 android:tint="?android:attr/colorForeground"
                 android:contentDescription="@string/accessibility_quick_settings_running_services" />
 
+            <com.android.systemui.statusbar.phone.MultiUserSwitch
+                 android:id="@+id/multi_user_switch"
+                 android:layout_width="32dp"
+                 android:layout_height="48dp"
+                 android:background="@drawable/ripple_drawable"
+                 android:layout_marginTop="2dp"
+                 android:layout_marginBottom="6dp"
+                 android:layout_marginEnd="8dp"
+                 android:focusable="true">
+
+                 <ImageView
+                     android:id="@+id/multi_user_avatar"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layout_gravity="center_vertical"
+                     android:padding="7dp"
+                     android:scaleType="centerInside"/>
+
+            </com.android.systemui.statusbar.phone.MultiUserSwitch>
+
             <com.android.systemui.statusbar.AlphaOptimizedFrameLayout
                 android:id="@+id/settings_button_container"
-                android:layout_width="@dimen/qs_footer_action_button_size"
-                android:layout_height="@dimen/qs_footer_action_button_size"
+                android:layout_width="32dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="6dp"
+                android:layout_marginEnd="5dp"
                 android:clipChildren="false"
                 android:clipToPadding="false">
-
+                
                 <com.android.systemui.statusbar.phone.SettingsButton
                     android:id="@+id/settings_button"
                     style="@android:style/Widget.Material.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:padding="@dimen/qs_footer_icon_padding"
+                    android:layout_gravity="center_vertical"
+                    android:padding="7dp"
                     android:background="@drawable/ripple_drawable"
                     android:contentDescription="@string/accessibility_quick_settings_settings"
                     android:src="@drawable/ic_settings"

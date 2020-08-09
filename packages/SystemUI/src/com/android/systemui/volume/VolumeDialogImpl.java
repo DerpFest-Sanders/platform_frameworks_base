@@ -255,8 +255,7 @@ public class VolumeDialogImpl implements VolumeDialog,
         mHasSeenODICaptionsTooltip =
                 Prefs.getBoolean(context, Prefs.Key.HAS_SEEN_ODI_CAPTIONS_TOOLTIP, false);
         mLeftVolumeRocker = mContext.getResources().getBoolean(R.bool.config_audioPanelOnLeftSide);
-        mHasAlertSlider = mContext.getResources().getBoolean(
-                com.android.internal.R.bool.config_hasAlertSlider);
+//        mHasAlertSlider = mContext.getResources().getBoolean(com.android.internal.R.bool.config_HasAlertSlider);
         mVibrateOnSlider = mContext.getResources().getBoolean(R.bool.config_vibrateOnIconAnimation);
         mElevation = mContext.getResources().getDimension(R.dimen.volume_dialog_elevation);
         mSpacer = mContext.getResources().getDimension(R.dimen.volume_dialog_row_spacer);
@@ -1982,14 +1981,6 @@ public class VolumeDialogImpl implements VolumeDialog,
             }
             return false;
         }
-    }
-
-    public boolean onLongClick(View v) {
-        if (v == mSettingsIcon) {
-            startSoundActivity();
-            mController.vibrate(VibrationEffect.get(VibrationEffect.EFFECT_HEAVY_CLICK));
-        }
-        return false;
     }
 
     private void startSoundActivity() {

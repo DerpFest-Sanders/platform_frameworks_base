@@ -341,9 +341,6 @@ public class VolumeDialogImpl implements VolumeDialog,
         mSettingsIcon = mDialog.findViewById(R.id.settings);
         mSettingsIcon.setOnLongClickListener(this);
 
-        if (mContext.getResources().getBoolean(R.bool.config_audioPanelOnLeftSide))
-            mExpandRows.setDefaultDirection(false);
-
         if (mRows.isEmpty()) {
             if (!AudioSystem.isSingleVolume(mContext)) {
                 addRow(STREAM_ACCESSIBILITY, R.drawable.ic_volume_accessibility,

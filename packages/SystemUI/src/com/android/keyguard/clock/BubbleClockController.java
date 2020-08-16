@@ -54,6 +54,8 @@ public class BubbleClockController implements ClockPlugin {
      */
     private final SysuiColorExtractor mColorExtractor;
 
+    private final SmallClockPosition mClockPosition;
+
     /**
      * Renders preview from clock view.
      */
@@ -64,6 +66,9 @@ public class BubbleClockController implements ClockPlugin {
      */
     private ClockLayout mView;
     private ImageClock mAnalogClock;
+
+    private View mLockClockContainer;
+    private TextClock mLockClock;
 
     private final Context mContext;
 
@@ -97,18 +102,24 @@ public class BubbleClockController implements ClockPlugin {
         mResources = res;
         mLayoutInflater = inflater;
         mColorExtractor = colorExtractor;
+        mClockPosition = new SmallClockPosition(res);
         mContext = context;
     }
 
     private void createViews() {
         mView = (ClockLayout) mLayoutInflater.inflate(R.layout.bubble_clock, null);
         mAnalogClock = (ImageClock) mView.findViewById(R.id.bubble_clock);
+
+        mLockClockContainer = mLayoutInflater.inflate(R.layout.digital_clock, null);
+        mLockClock = (TextClock) mLockClockContainer.findViewById(R.id.lock_screen_clock);
     }
 
     @Override
     public void onDestroyView() {
         mView = null;
         mAnalogClock = null;
+        mLockClockContainer = null;
+        mLockClock = null;
     }
 
     @Override
@@ -145,7 +156,10 @@ public class BubbleClockController implements ClockPlugin {
 
     @Override
     public View getView() {
-        return null;
+        if (mLockClockContainer == null) {
+            createViews();
+        }
+        return mLockClockContainer;
     }
 
     @Override
@@ -158,7 +172,7 @@ public class BubbleClockController implements ClockPlugin {
 
     @Override
     public int getPreferredY(int totalHeight) {
-        return totalHeight / 2;
+        return mClockPosition.getPreferredY();
     }
 
     @Override
@@ -181,6 +195,7 @@ public class BubbleClockController implements ClockPlugin {
     @Override
     public void setDarkAmount(float darkAmount) {
         mPalette.setDarkAmount(darkAmount);
+        mClockPosition.setDarkAmount(darkAmount);
         mView.setDarkAmount(darkAmount);
     }
 
@@ -188,6 +203,7 @@ public class BubbleClockController implements ClockPlugin {
     public void onTimeTick() {
         mAnalogClock.onTimeChanged();
         mView.onTimeChanged();
+        mLockClock.refresh();
     }
 
     @Override

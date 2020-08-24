@@ -134,7 +134,7 @@
     </LinearLayout>
     <View
         android:id="@+id/qs_drag_handle_view"
-        android:layout_width="32dp"
+        android:layout_width="40dp"
         android:layout_height="3dp"
         android:layout_marginBottom="16dp"
         android:layout_gravity="center_horizontal|bottom"

@@ -141,15 +141,15 @@ public class SammyClockController implements ClockPlugin {
 
     @Override
     public View getView() {
-        if (mView == null) {
-            createViews();
-        }
-        return mView;
+        return null;
     }
 
     @Override
     public View getBigClockView() {
-        return null;
+        if (mView == null) {
+            createViews();
+        }
+        return mView;
     }
 
     @Override

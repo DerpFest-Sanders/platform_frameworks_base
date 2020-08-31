@@ -275,9 +275,7 @@ public class StatusBarWindowView extends FrameLayout {
      * Propagate {@link StatusBar} pulsing state.
      */
     public void setPulsing(boolean pulsing) {
-        boolean isAOD = Settings.Secure.getInt(mContext.getContentResolver(),
-              Settings.Secure.DOZE_ALWAYS_ON, 1) == 1;
-        if (mLockIcon != null && !isAOD) {
+        if (mLockIcon != null) {
             mLockIcon.setVisibility(pulsing ? View.GONE : View.VISIBLE);
         }
     }

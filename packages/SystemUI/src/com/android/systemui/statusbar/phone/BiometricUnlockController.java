@@ -277,7 +277,7 @@ public class BiometricUnlockController extends KeyguardUpdateMonitorCallback {
         boolean wasDeviceInteractive = mUpdateMonitor.isDeviceInteractive();
         mMode = mode;
         mHasScreenTurnedOnSinceAuthenticating = false;
-        if (mMode == MODE_WAKE_AND_UNLOCK_PULSING && pulsingOrAod()) {
+        if (pulsingOrAod()) {
             // If we are waking the device up while we are pulsing the clock and the
             // notifications would light up first, creating an unpleasant animation.
             // Defer changing the screen brightness by forcing doze brightness on our window
@@ -316,6 +316,13 @@ public class BiometricUnlockController extends KeyguardUpdateMonitorCallback {
                 Trace.endSection();
                 break;
             case MODE_UNLOCK_COLLAPSING:
+                if (pulsingOrAod()) {
+                    mKeyguardViewMediator.onWakeAndUnlocking();
+                    if (mStatusBar.getNavigationBarView() != null) {
+                        mStatusBar.getNavigationBarView().setWakeAndUnlocking(true);
+                    }
+                    break;
+                }
             case MODE_SHOW_BOUNCER:
                 Trace.beginSection("MODE_UNLOCK_COLLAPSING or MODE_SHOW_BOUNCER");
                 if (!wasDeviceInteractive) {
@@ -414,8 +421,8 @@ public class BiometricUnlockController extends KeyguardUpdateMonitorCallback {
         if (!mUpdateMonitor.isDeviceInteractive()) {
             if (!mStatusBarKeyguardViewManager.isShowing()) {
                 return MODE_ONLY_WAKE;
-            } else if (mDozeScrimController.isPulsing() && unlockingAllowed) {
-                return MODE_WAKE_AND_UNLOCK_PULSING;
+            } else if (pulsingOrAod() && unlockingAllowed) {
+                return MODE_UNLOCK;
             } else if (unlockingAllowed || !mUnlockMethodCache.isMethodSecure()) {
                 return MODE_WAKE_AND_UNLOCK;
             } else {
